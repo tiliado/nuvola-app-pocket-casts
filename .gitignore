@@ -6,3 +6,8 @@ eu.tiliado.NuvolaAppPocketCasts.desktop
 eu.tiliado.NuvolaAppPocketCasts.data.service
 eu.tiliado.NuvolaAppPocketCasts.appdata.xml
 pocket_casts.tar.gz
+eu.tiliado.NuvolaAppPocketCasts.service
+eu.tiliado.WebRuntimeAppPocketCasts.appdata.xml
+eu.tiliado.WebRuntimeAppPocketCasts.desktop
+eu.tiliado.WebRuntimeAppPocketCasts.service
+nuvola-app-pocket-casts.metainfo.xml
