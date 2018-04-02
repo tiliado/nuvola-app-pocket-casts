@@ -1,16 +1,21 @@
-Pocket Casts Nuvola Player App
-=============================
+Pocket Casts • Nuvola Apps Runtime
+====================================
 
 Integration of Pocket Casts into your linux desktop via
-[Nuvola Player](https://github.com/tiliado/nuvolaplayer).
- 
+[Nuvola Apps Runtime](https://github.com/tiliado/nuvolaruntime).
+
 Support
 -------
 
-Report bugs and issues at <https://github.com/tiliado/nuvola-app-pocket-casts/issues>.
+Follow [Bug reporting guidelines](https://github.com/tiliado/nuvolaruntime/wiki/Bug-Reporting-Guidelines).
 
 Installation
 ------------
+
+Install the [genuine cross-distribution flatpak packages](https://nuvola.tiliado.eu/app/pocket_casts/).
+
+Building
+--------
 
 This project uses [Nuvola SDK](https://github.com/tiliado/nuvolasdk#create-new-project). Please refer to
 the [Build a Project Using Nuvola SDK](https://github.com/tiliado/nuvolasdk#build-a-project-using-nuvola-sdk)
@@ -35,5 +40,5 @@ Copyright
     + License: [CC-BY-3.0](./LICENSE-CC-BY.txt)
 
   - Other files:
-    + Copyright 2017 Jiří Janoušek <janousek.jiri@gmail.com>
+    + Copyright 2017-2018 Jiří Janoušek <janousek.jiri@gmail.com>
     + License: [2-Clause BSD-license](./LICENSE-BSD.txt)
