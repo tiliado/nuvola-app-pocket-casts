@@ -38,6 +38,7 @@
   // Initialization routines
   WebApp._onInitWebWorker = function (emitter) {
     Nuvola.WebApp._onInitWebWorker.call(this, emitter)
+    this.isBeta = window.location.hostname === 'playbeta.pocketcasts.com'
 
     var state = document.readyState
     if (state === 'interactive' || state === 'complete') {
@@ -72,8 +73,8 @@
       track.artist = elm ? (elm.innerText || null) : null
       elm = elements.audio.querySelector('.player_episode')
       track.title = elm ? (elm.innerText || null) : null
-      elm = elements.audio.querySelector('.player_artwork img')
-      track.artLocation = elm ? (elm.src || null) : null
+      elm = elements.audio.querySelector('.player_artwork img') || elements.audio.querySelector('.player-image img')
+      track.artLocation = elm ? (elm.src.replace('/webp/', '/').replace('.webp', '.jpg') || null) : null
     }
     var state = PlaybackState.UNKNOWN
     if (elements.play) {
@@ -84,7 +85,12 @@
     var time = this._parseTime(elements)
     var volume = null
     if (elements.volumeBarPos) {
-      volume = elements.volumeBarPos.style.width.replace('%', '') * 1 / 100
+      volume = elements.volumeBarPos.style.width
+      if (volume.endsWith('%')) {
+        volume = volume.replace('%', '') * 1 / 100
+      } else {
+        volume = volume.substr(0, volume.length - 2) / elements.volumeBarPos.parentNode.getBoundingClientRect().width
+      }
     }
 
     track.length = time.total
@@ -151,6 +157,13 @@
     }
   }
 
+  WebApp._onNavigationRequest = function (emitter, request) {
+    Nuvola.WebApp._onNavigationRequest.call(this, emitter, request)
+    if (request.newWindow && request.url.startsWith('https://playbeta.pocketcasts.com')) {
+      request.newWindow = false
+    }
+  }
+
   WebApp._parseTime = function (elements) {
     var time = {
       total: null,
@@ -169,6 +182,10 @@
   }
 
   WebApp._getElements = function () {
+    return this.isBeta ? this._getElementsBeta() : this._getElementsOld();
+  }
+
+  WebApp._getElementsOld = function () {
     var elms = {
       players: document.getElementById('players'),
       audio: null,
@@ -190,6 +207,32 @@
       elms.remainingTime = elms.audio.querySelector('.player_progress .remaining_time')
       elms.volumeBarPos = elms.audio.querySelector('.volume_slider .seek_bar_played')
       elms.volumeBar = elms.audio.querySelector('.volume_slider')
+    }
+    return elms
+  }
+
+  WebApp._getElementsBeta = function () {
+    var elms = {
+      players: document.querySelector('div.player-controls'),
+      audio: null,
+      play: null,
+      pause: null,
+      prev: null,
+      next: null
+    }
+    if (elms.players) {
+      elms.audio = elms.players
+    }
+    if (elms.audio) {
+      elms.prev = elms.audio.querySelector('.skip_back_button')
+      elms.next = elms.audio.querySelector('.skip_forward_button')
+      elms.pause = elms.audio.querySelector('.play_pause_button.pause_button')
+      elms.play = elms.audio.querySelector('.play_pause_button.play_button')
+      elms.seekBar = elms.audio.querySelector('.seek-bar .tracks')
+      elms.currentTime = elms.audio.querySelector('.current-time')
+      elms.remainingTime = elms.audio.querySelector('.time-remaining')
+      elms.volumeBarPos = elms.audio.querySelector('.volume-slider .bar .fill')
+      elms.volumeBar = elms.audio.querySelector('.volume-slider .bar-touch')
     }
     return elms
   }
