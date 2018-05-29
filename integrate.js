@@ -182,7 +182,7 @@
   }
 
   WebApp._getElements = function () {
-    return this.isBeta ? this._getElementsBeta() : this._getElementsOld();
+    return this.isBeta ? this._getElementsBeta() : this._getElementsOld()
   }
 
   WebApp._getElementsOld = function () {
