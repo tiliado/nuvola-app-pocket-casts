@@ -10,6 +10,7 @@
   "api_minor": 11,
   "requirements": "Chromium[65] Codec[MP3] Feature[MSE]",
   "categories": "AudioVideo;Audio;",
+  "dark_theme": true,
   "allow_insecure_content": true,
   "license": "BSD-2-Clause; CC-BY-SA-3.0",
   "build": {
