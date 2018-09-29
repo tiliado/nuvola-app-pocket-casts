@@ -1,4 +1,4 @@
-Pocket Casts • Nuvola Apps Runtime
+Pocket Casts • Nuvola Apps Runtime [![CircleCI](https://circleci.com/gh/tiliado/nuvola-app-pocket-casts/tree/master.svg?style=svg)](https://circleci.com/gh/tiliado/nuvola-app-pocket-casts/tree/master)
 ====================================
 
 Integration of Pocket Casts into your linux desktop via
