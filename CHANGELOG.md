@@ -1,5 +1,7 @@
 Pocket Casts Change Log
-======================
+=======================
+
+  * Use a dark theme variant by default.
 
 1.1 - June 12th, 2018
 ---------------------
