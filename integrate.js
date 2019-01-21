@@ -108,7 +108,7 @@
     setTimeout(this.update.bind(this), 300)
   }
 
-// Handler of playback actions
+  // Handler of playback actions
   WebApp._onActionActivated = function (emitter, name, param) {
     var elements = this._getElements()
     switch (name) {
@@ -200,4 +200,4 @@
   }
 
   WebApp.start()
-})(this)  // function(Nuvola)
+})(this) // function(Nuvola)
