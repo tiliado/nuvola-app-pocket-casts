@@ -1,6 +1,10 @@
 Pocket Casts Change Log
 =======================
 
+ * Adjust to the switch of the stable web player interface: The beta version of the new player interface,
+   previously used only for playbeta.pocketcasts.com, has become the new stable interface for play.pocketcasts.com.
+   Issue: tiliado/nuvolaruntime#500
+
 1.2 - October 14th, 2018
 ------------------------
 

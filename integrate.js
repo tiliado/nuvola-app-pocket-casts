@@ -38,7 +38,6 @@
   // Initialization routines
   WebApp._onInitWebWorker = function (emitter) {
     Nuvola.WebApp._onInitWebWorker.call(this, emitter)
-    this.isBeta = window.location.hostname === 'playbeta.pocketcasts.com'
 
     var state = document.readyState
     if (state === 'interactive' || state === 'complete') {
@@ -157,13 +156,6 @@
     }
   }
 
-  WebApp._onNavigationRequest = function (emitter, request) {
-    Nuvola.WebApp._onNavigationRequest.call(this, emitter, request)
-    if (request.newWindow && request.url.startsWith('https://playbeta.pocketcasts.com')) {
-      request.newWindow = false
-    }
-  }
-
   WebApp._parseTime = function (elements) {
     var time = {
       total: null,
@@ -182,36 +174,6 @@
   }
 
   WebApp._getElements = function () {
-    return this.isBeta ? this._getElementsBeta() : this._getElementsOld()
-  }
-
-  WebApp._getElementsOld = function () {
-    var elms = {
-      players: document.getElementById('players'),
-      audio: null,
-      play: null,
-      pause: null,
-      prev: null,
-      next: null
-    }
-    if (elms.players && !elms.players.classList.contains('ng-hide')) {
-      elms.audio = document.getElementById('audio_player_wrapper')
-    }
-    if (elms.audio) {
-      elms.prev = elms.audio.querySelector('.skip_back_button')
-      elms.next = elms.audio.querySelector('.skip_forward_button')
-      elms.pause = elms.audio.querySelector('.play_pause_button.pause_button')
-      elms.play = elms.audio.querySelector('.play_pause_button.play_button')
-      elms.seekBar = elms.audio.querySelector('.player_progress .seek_bar')
-      elms.currentTime = elms.audio.querySelector('.player_progress .current_time')
-      elms.remainingTime = elms.audio.querySelector('.player_progress .remaining_time')
-      elms.volumeBarPos = elms.audio.querySelector('.volume_slider .seek_bar_played')
-      elms.volumeBar = elms.audio.querySelector('.volume_slider')
-    }
-    return elms
-  }
-
-  WebApp._getElementsBeta = function () {
     var elms = {
       players: document.querySelector('div.player-controls'),
       audio: null,
