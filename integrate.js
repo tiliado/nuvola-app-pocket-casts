@@ -82,15 +82,7 @@
       state = PlaybackState.PLAYING
     }
     var time = this._parseTime(elements)
-    var volume = null
-    if (elements.volumeBarPos) {
-      volume = elements.volumeBarPos.style.width
-      if (volume.endsWith('%')) {
-        volume = volume.replace('%', '') * 1 / 100
-      } else {
-        volume = volume.substr(0, volume.length - 2) / elements.volumeBarPos.parentNode.getBoundingClientRect().width
-      }
-    }
+    var volume = elements.volumeBarPos ? elements.volumeBarPos.getAttribute('aria-valuenow') * 1 : null
 
     track.length = time.total
     player.setTrack(track)
@@ -188,13 +180,17 @@
     if (elms.audio) {
       elms.prev = elms.audio.querySelector('.skip_back_button')
       elms.next = elms.audio.querySelector('.skip_forward_button')
-      elms.pause = elms.audio.querySelector('.play_pause_button.pause_button')
-      elms.play = elms.audio.querySelector('.play_pause_button.play_button')
+      elms.play = elms.audio.querySelector('.play_pause_button')
       elms.seekBar = elms.audio.querySelector('.seek-bar .tracks')
       elms.currentTime = elms.audio.querySelector('.current-time')
       elms.remainingTime = elms.audio.querySelector('.time-remaining')
-      elms.volumeBarPos = elms.audio.querySelector('.volume-slider .bar .fill')
-      elms.volumeBar = elms.audio.querySelector('.volume-slider .bar-touch')
+      elms.volumeBarPos = elms.audio.querySelector('.volume-slider [role="slider"]')
+      elms.volumeBar = elms.audio.querySelector('.volume-slider [class|="styled__VolumeBarTouch"]')
+
+      if (elms.play && elms.play.getAttribute('aria-pressed') === 'true') {
+        elms.pause = elms.play
+        elms.play = null
+      }
     }
     return elms
   }
