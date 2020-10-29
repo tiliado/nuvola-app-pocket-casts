@@ -1,6 +1,9 @@
 Pocket Casts Change Log
 =======================
 
+1.4 - October 29, 2020
+----------------------
+
  * Fix integration of play/pause buttons and volume management. Issue: tiliado/nuvolaruntime#659
 
 1.3 - February 24th, 2019
