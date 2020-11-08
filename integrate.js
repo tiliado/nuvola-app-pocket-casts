@@ -26,20 +26,20 @@
 
 (function (Nuvola) {
   // Create media player component
-  var player = Nuvola.$object(Nuvola.MediaPlayer)
+  const player = Nuvola.$object(Nuvola.MediaPlayer)
 
   // Handy aliases
-  var PlaybackState = Nuvola.PlaybackState
-  var PlayerAction = Nuvola.PlayerAction
+  const PlaybackState = Nuvola.PlaybackState
+  const PlayerAction = Nuvola.PlayerAction
 
   // Create new WebApp prototype
-  var WebApp = Nuvola.$WebApp()
+  const WebApp = Nuvola.$WebApp()
 
   // Initialization routines
   WebApp._onInitWebWorker = function (emitter) {
     Nuvola.WebApp._onInitWebWorker.call(this, emitter)
 
-    var state = document.readyState
+    const state = document.readyState
     if (state === 'interactive' || state === 'complete') {
       this._onPageReady()
     } else {
@@ -58,15 +58,15 @@
 
   // Extract data from the web page
   WebApp.update = function () {
-    var track = {
+    const track = {
       title: null,
       artist: null,
       album: null,
       artLocation: null,
       rating: null
     }
-    var elements = this._getElements()
-    var elm
+    const elements = this._getElements()
+    let elm
     if (elements.audio) {
       elm = elements.audio.querySelector('.player_podcast_title')
       track.artist = elm ? (elm.innerText || null) : null
@@ -75,14 +75,14 @@
       elm = elements.audio.querySelector('.player_artwork img') || elements.audio.querySelector('.player-image img')
       track.artLocation = elm ? (elm.src.replace('/webp/', '/').replace('.webp', '.jpg') || null) : null
     }
-    var state = PlaybackState.UNKNOWN
+    let state = PlaybackState.UNKNOWN
     if (elements.play) {
       state = PlaybackState.PAUSED
     } else if (elements.pause) {
       state = PlaybackState.PLAYING
     }
-    var time = this._parseTime(elements)
-    var volume = elements.volumeBarPos ? elements.volumeBarPos.getAttribute('aria-valuenow') * 1 : null
+    const time = this._parseTime(elements)
+    const volume = elements.volumeBarPos ? elements.volumeBarPos.getAttribute('aria-valuenow') * 1 : null
 
     track.length = time.total
     player.setTrack(track)
@@ -102,7 +102,7 @@
 
   // Handler of playback actions
   WebApp._onActionActivated = function (emitter, name, param) {
-    var elements = this._getElements()
+    const elements = this._getElements()
     switch (name) {
       case PlayerAction.TOGGLE_PLAY:
         if (elements.play) {
@@ -134,7 +134,7 @@
         break
       case PlayerAction.SEEK:
         if (elements.seekBar) {
-          var time = this._parseTime(elements)
+          const time = this._parseTime(elements)
           if (time.total && param > 0 && param <= time.total) {
             Nuvola.clickOnElement(elements.seekBar, param / time.total, 0.5)
           }
@@ -149,14 +149,14 @@
   }
 
   WebApp._parseTime = function (elements) {
-    var time = {
+    const time = {
       total: null,
       current: null,
       remaining: null
     }
     if (elements.currentTime && elements.remainingTime) {
       time.current = Nuvola.parseTimeUsec(elements.currentTime.innerText || null)
-      var remainingTime = elements.remainingTime.innerText || null
+      const remainingTime = elements.remainingTime.innerText || null
       if (time.current && remainingTime) {
         time.remaining = Nuvola.parseTimeUsec(remainingTime.substring(1))
         time.total = time.current + time.remaining
@@ -166,7 +166,7 @@
   }
 
   WebApp._getElements = function () {
-    var elms = {
+    const elms = {
       players: document.querySelector('div.player-controls'),
       audio: null,
       play: null,
